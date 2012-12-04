@@ -34,10 +34,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// bindingSource1
-			// 
-			this.bindingSource1.CurrentChanged += new System.EventHandler(this.bindingSource1_CurrentChanged);
-			// 
 			// listBox1
 			// 
 			this.listBox1.FormattingEnabled = true;

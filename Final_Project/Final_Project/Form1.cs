@@ -18,20 +18,30 @@ namespace Final_Project
 			InitializeComponent();
 		}
 
-		private void bindingSource1_CurrentChanged(object sender, EventArgs e)
-		{
-
-		}
-
 		private void Form1_Load(object sender, EventArgs e)
 		{
 			DatabaseHelper dbHelper = new DatabaseHelper();
-			List<List> allLists = dbHelper.getLists();
+			List<List> allLists = dbHelper.GetLists();
 
 			listBox1.DataSource = allLists;
 
 			Task task = new Task("Do homework", "Need to finish this C#", new DateTime(2012, 5, 3));
 			task.ListID = 0;
+
+			Console.WriteLine(task.IsCompleted());
+			Console.WriteLine(task.Name);
+			Console.WriteLine(task.Description);
+			Console.WriteLine(task.DueDate);
+			Console.WriteLine(task.Completed);
+			Console.WriteLine(task.ListID);
+
+			dbHelper.CreateTask(task);
+
+			List<Task> tasks = dbHelper.GetTasksForList(0);
+			foreach (Task t in tasks)
+			{
+				Console.WriteLine(t.Name);
+			}
 		}
 	}
 }
