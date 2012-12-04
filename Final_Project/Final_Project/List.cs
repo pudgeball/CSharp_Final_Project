@@ -18,7 +18,10 @@ namespace Final_Project.Model
 			{
 				return _id;
 			}
-			private set { }
+			set
+			{
+				_id = value;
+			}
 		}
 
 		public string Name
@@ -39,10 +42,22 @@ namespace Final_Project.Model
 			{
 				return _tasks;
 			}
+
+			set
+			{
+				_tasks = value;
+			}
+		}
+
+		public List()
+		{
+			this.ID = -1;
+			this.Name = "Error";
 		}
 
 		public List(string Name)
 		{
+			this.ID = -1;
 			this.Name = Name;
 		}
 
@@ -57,9 +72,24 @@ namespace Final_Project.Model
 			return Name;
 		}
 
-		//public float GetListCompletion()
-		//{
-		//    return 0.0f;
-		//}
+		public double GetListCompletion()
+		{
+			double completedTasks = 0D;
+			double incompleteTasks = 0D;
+
+			foreach (Task task in Tasks)
+			{
+				if (task.IsCompleted())
+				{
+					completedTasks++;
+				}
+				else
+				{
+					incompleteTasks++;
+				}
+			}
+
+			return (completedTasks / incompleteTasks);
+		}
 	}
 }

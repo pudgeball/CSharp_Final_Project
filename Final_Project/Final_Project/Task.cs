@@ -50,18 +50,11 @@ namespace Final_Project.Model
 			}
 		}
 
-		public bool Completed
+		public DateTime Completed
 		{
 			get
 			{
-				if (_completed != null)
-				{
-					return false;
-				}
-				else
-				{
-					return true;
-				}
+				return _completed;
 			}
 
 			private set { }
@@ -93,6 +86,30 @@ namespace Final_Project.Model
 			this.Description = Description;
 			this.DueDate = DueDate;
 			this._completed = Completed;
+		}
+
+        public bool IsCompleted()
+        {
+            if (_completed != null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+		
+		public void SetCompleted(bool isComplete)
+		{
+			if (isComplete)
+			{
+				_completed = DateTime.Now;
+			}
+			else
+			{
+				_completed = DateTime.MinValue;
+			}
 		}
 	}
 }
