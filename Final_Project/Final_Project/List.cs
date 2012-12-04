@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Final_Project.Utilities;
 
 namespace Final_Project.Model
 {
@@ -45,9 +46,20 @@ namespace Final_Project.Model
 			this.Name = Name;
 		}
 
-		public double GetListCompletion()
+		public List(int ID, string Name)
 		{
-
+			this.ID = ID;
+			this.Name = Name;
 		}
+
+		public override string ToString()
+		{
+			return Name;
+		}
+
+		//public float GetListCompletion()
+		//{
+		//    return 0.0f;
+		//}
 	}
 }
