@@ -13,6 +13,8 @@ namespace Final_Project
 {
 	public partial class Form1 : Form
 	{
+        DatabaseHelper dbHelper;
+
 		public Form1()
 		{
 			InitializeComponent();
@@ -20,7 +22,10 @@ namespace Final_Project
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			DatabaseHelper dbHelper = new DatabaseHelper();
+            //set up event handlers
+            listBox1.SelectedIndexChanged += new EventHandler(listBox1_SelectedIndexChanged);
+            
+			dbHelper = new DatabaseHelper();
 			List<List> allLists = dbHelper.GetLists();
 
 			listBox1.DataSource = allLists;
@@ -36,12 +41,48 @@ namespace Final_Project
 			Console.WriteLine(task.ListID);
 
 			dbHelper.CreateTask(task);
-
-			List<Task> tasks = dbHelper.GetTasksForList(0);
-			foreach (Task t in tasks)
-			{
-				Console.WriteLine(t.Name);
-			}
 		}
+
+        void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = listBox1.SelectedIndex;
+            int numberOfTasks;
+            int numberOfCompletedTasks = 0;
+            double percentageOfTasksCompleted = 0;
+
+            //clear taskBox
+            taskBox.Items.Clear();
+
+            //set label
+            lblProjectName.Text = ((List)(listBox1.Items[index])).Name;
+
+            //populate taskBox
+            List<Task> tasks = dbHelper.GetTasksForList(index);
+            foreach (Task t in tasks)
+            {
+                if (t.IsCompleted())
+                {
+                    numberOfCompletedTasks++;
+                }
+
+                taskBox.Items.Add(t.Name);
+                Console.WriteLine(t.Name);
+            }
+
+            //calculate percentage of tasks completed
+            numberOfTasks = taskBox.Items.Count;
+            try
+            {
+                percentageOfTasksCompleted = (numberOfCompletedTasks / numberOfTasks) * 100.0;
+            }
+            catch (DivideByZeroException)
+            {
+                percentageOfTasksCompleted = 100;
+            }
+
+            //set completion bar width
+            completionBar.BackColor = Color.Red;
+            completionBar.Width = (int)(500 * (percentageOfTasksCompleted / 100));
+        }
 	}
 }
