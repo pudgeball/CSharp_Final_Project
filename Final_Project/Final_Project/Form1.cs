@@ -45,19 +45,20 @@ namespace Final_Project
 
         void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int index = listBox1.SelectedIndex;
+            int selectedIndex = listBox1.SelectedIndex;
             int numberOfTasks;
             int numberOfCompletedTasks = 0;
             double percentageOfTasksCompleted = 0;
+            List selectedList = ((List)(listBox1.Items[selectedIndex]));
 
             //clear taskBox
             taskBox.Items.Clear();
 
             //set label
-            lblProjectName.Text = ((List)(listBox1.Items[index])).Name;
+            lblProjectName.Text = selectedList.Name;
 
             //populate taskBox
-            List<Task> tasks = dbHelper.GetTasksForList(index);
+            List<Task> tasks = dbHelper.GetTasksForList(selectedList.ID);
             foreach (Task t in tasks)
             {
                 if (t.IsCompleted())
@@ -81,7 +82,7 @@ namespace Final_Project
             }
 
             //set completion bar width
-            completionBar.BackColor = Color.Red;
+            completionBar.BackColor = Color.Green;
             completionBar.Width = (int)(500 * (percentageOfTasksCompleted / 100));
         }
 	}
