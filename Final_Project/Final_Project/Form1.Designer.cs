@@ -1,6 +1,6 @@
 ﻿namespace Final_Project
 {
-	partial class Form1
+	partial class MainForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -41,10 +41,14 @@
             this.lblProjectName = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.completionBar = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.completionBar = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
+            this.cmdViewTaskDetails = new System.Windows.Forms.Button();
+            this.cmdDeleteTask = new System.Windows.Forms.Button();
+            this.cmdAddListItem = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -53,9 +57,9 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 37);
+            this.listBox1.Location = new System.Drawing.Point(12, 63);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(187, 381);
+            this.listBox1.Size = new System.Drawing.Size(187, 264);
             this.listBox1.TabIndex = 0;
             // 
             // menuStrip1
@@ -65,7 +69,7 @@
             this.editToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(750, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(731, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -101,7 +105,7 @@
             this.taskBox.FormattingEnabled = true;
             this.taskBox.Location = new System.Drawing.Point(216, 167);
             this.taskBox.Name = "taskBox";
-            this.taskBox.Size = new System.Drawing.Size(510, 251);
+            this.taskBox.Size = new System.Drawing.Size(501, 160);
             this.taskBox.TabIndex = 2;
             // 
             // label1
@@ -143,6 +147,13 @@
             this.panel1.Size = new System.Drawing.Size(500, 24);
             this.panel1.TabIndex = 7;
             // 
+            // completionBar
+            // 
+            this.completionBar.Location = new System.Drawing.Point(-1, 0);
+            this.completionBar.Name = "completionBar";
+            this.completionBar.Size = new System.Drawing.Size(500, 22);
+            this.completionBar.TabIndex = 10;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -163,13 +174,6 @@
             this.label5.TabIndex = 9;
             this.label5.Text = "100%";
             // 
-            // completionBar
-            // 
-            this.completionBar.Location = new System.Drawing.Point(-1, 0);
-            this.completionBar.Name = "completionBar";
-            this.completionBar.Size = new System.Drawing.Size(500, 22);
-            this.completionBar.TabIndex = 10;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -180,11 +184,53 @@
             this.label2.TabIndex = 10;
             this.label2.Text = "Completion";
             // 
-            // Form1
+            // cmdViewTaskDetails
+            // 
+            this.cmdViewTaskDetails.Location = new System.Drawing.Point(610, 341);
+            this.cmdViewTaskDetails.Name = "cmdViewTaskDetails";
+            this.cmdViewTaskDetails.Size = new System.Drawing.Size(107, 23);
+            this.cmdViewTaskDetails.TabIndex = 11;
+            this.cmdViewTaskDetails.Text = "View Task Details";
+            this.cmdViewTaskDetails.UseVisualStyleBackColor = true;
+            this.cmdViewTaskDetails.Click += new System.EventHandler(this.cmdViewTaskDetails_Click);
+            // 
+            // cmdDeleteTask
+            // 
+            this.cmdDeleteTask.Location = new System.Drawing.Point(529, 341);
+            this.cmdDeleteTask.Name = "cmdDeleteTask";
+            this.cmdDeleteTask.Size = new System.Drawing.Size(75, 23);
+            this.cmdDeleteTask.TabIndex = 12;
+            this.cmdDeleteTask.Text = "Delete Task";
+            this.cmdDeleteTask.UseVisualStyleBackColor = true;
+            // 
+            // cmdAddListItem
+            // 
+            this.cmdAddListItem.Location = new System.Drawing.Point(12, 341);
+            this.cmdAddListItem.Name = "cmdAddListItem";
+            this.cmdAddListItem.Size = new System.Drawing.Size(187, 23);
+            this.cmdAddListItem.TabIndex = 13;
+            this.cmdAddListItem.Text = "Add List Item";
+            this.cmdAddListItem.UseVisualStyleBackColor = true;
+            this.cmdAddListItem.Click += new System.EventHandler(this.cmdAddListItem_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 37);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(59, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Project List";
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(750, 431);
+            this.ClientSize = new System.Drawing.Size(731, 376);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.cmdAddListItem);
+            this.Controls.Add(this.cmdDeleteTask);
+            this.Controls.Add(this.cmdViewTaskDetails);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -196,7 +242,7 @@
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "TaskMaster";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
@@ -226,6 +272,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel completionBar;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button cmdViewTaskDetails;
+        private System.Windows.Forms.Button cmdDeleteTask;
+        private System.Windows.Forms.Button cmdAddListItem;
+        private System.Windows.Forms.Label label6;
 	}
 }
 

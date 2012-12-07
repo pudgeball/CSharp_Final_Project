@@ -11,11 +11,13 @@ using Final_Project.Utilities;
 
 namespace Final_Project
 {
-	public partial class Form1 : Form
+	public partial class MainForm : Form
 	{
         DatabaseHelper dbHelper;
+        int listSelectedIndex = 0;
+        int taskSelectedIndex = -1;
 
-		public Form1()
+		public MainForm()
 		{
 			InitializeComponent();
 		}
@@ -24,13 +26,10 @@ namespace Final_Project
 		{
             //set up event handlers
             listBox1.SelectedIndexChanged += new EventHandler(listBox1_SelectedIndexChanged);
-            
-			dbHelper = new DatabaseHelper();
-			List<List> allLists = dbHelper.GetLists();
 
-			listBox1.DataSource = allLists;
+            GetData();
 
-			Task task = new Task("Do homework", "Need to finish this C#", new DateTime(2012, 5, 3));
+			/*Task task = new Task("Do homework", "Need to finish this C#", new DateTime(2012, 5, 3));
 			task.ListID = 0;
 
 			Console.WriteLine(task.IsCompleted());
@@ -40,16 +39,26 @@ namespace Final_Project
 			Console.WriteLine(task.Completed);
 			Console.WriteLine(task.ListID);
 
-			dbHelper.CreateTask(task);
+			dbHelper.CreateTask(task);*/
 		}
+
+        private void GetData()
+        {
+            dbHelper = new DatabaseHelper();
+            List<List> allLists = dbHelper.GetLists();
+
+            int previousIndex = listSelectedIndex;
+            listBox1.DataSource = allLists;
+            listBox1.SelectedIndex = previousIndex;
+        }
 
         void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int selectedIndex = listBox1.SelectedIndex;
+            listSelectedIndex = listBox1.SelectedIndex;
             int numberOfTasks;
             int numberOfCompletedTasks = 0;
             double percentageOfTasksCompleted = 0;
-            List selectedList = ((List)(listBox1.Items[selectedIndex]));
+            List selectedList = ((List)(listBox1.Items[listSelectedIndex]));
 
             //clear taskBox
             taskBox.Items.Clear();
@@ -63,11 +72,15 @@ namespace Final_Project
             {
                 if (t.IsCompleted())
                 {
+                    taskBox.Items.Add("[COMPLETED] " + t.Name);
                     numberOfCompletedTasks++;
                 }
-
-                taskBox.Items.Add(t.Name);
-                Console.WriteLine(t.Name);
+                else
+                {
+                    taskBox.Items.Add("[INCOMPLETE] " + t.Name);
+                }
+                
+                //Console.WriteLine(t.Name);
             }
 
             //calculate percentage of tasks completed
@@ -84,6 +97,28 @@ namespace Final_Project
             //set completion bar width
             completionBar.BackColor = Color.Green;
             completionBar.Width = (int)(500 * (percentageOfTasksCompleted / 100));
+        }
+
+        private void cmdViewTaskDetails_Click(object sender, EventArgs e)
+        {
+            taskSelectedIndex = taskBox.SelectedIndex;
+
+            if (taskSelectedIndex >= 0)
+            {
+                TaskForm taskForm = new TaskForm();
+                if (taskForm.ShowDialog() == DialogResult.OK)
+                {
+                    GetData();
+                    MessageBox.Show("updated");
+                }
+            }
+        }
+
+        private void cmdAddListItem_Click(object sender, EventArgs e)
+        {
+            AddListItemForm addListItemForm = new AddListItemForm();
+            addListItemForm.ShowDialog();
+            GetData();
         }
 	}
 }
