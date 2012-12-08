@@ -6,7 +6,7 @@ using Final_Project.Utilities;
 
 namespace Final_Project.Model
 {
-	class List
+	public class List
 	{
 		private int _id;
 		private string _name;

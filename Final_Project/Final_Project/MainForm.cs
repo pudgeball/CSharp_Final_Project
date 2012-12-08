@@ -17,6 +17,7 @@ namespace Final_Project
         int listSelectedIndex = 0;
         int taskSelectedIndex = -1;
         List<Task> tasks;
+        List<List> allLists;
 
 		public MainForm()
 		{
@@ -46,7 +47,7 @@ namespace Final_Project
         private void GetData()
         {
             dbHelper = new DatabaseHelper();
-            List<List> allLists = dbHelper.GetLists();
+            allLists = dbHelper.GetLists();
 
             int previousIndex = listSelectedIndex;
             listBox1.DataSource = allLists;
@@ -129,6 +130,23 @@ namespace Final_Project
                 {
                     //delete the selected task here
                     GetData();
+                }
+            }
+        }
+
+        private void cmdAddTask_Click(object sender, EventArgs e)
+        {
+            listSelectedIndex = listBox1.SelectedIndex;
+
+            if (listSelectedIndex >= 0)
+            {
+                List list = allLists[listSelectedIndex];
+
+                TaskForm taskForm = new TaskForm(list);
+                if (taskForm.ShowDialog() == DialogResult.OK)
+                {
+                    GetData();
+                    MessageBox.Show("created");
                 }
             }
         }

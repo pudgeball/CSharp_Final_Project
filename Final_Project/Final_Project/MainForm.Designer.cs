@@ -49,6 +49,7 @@
             this.cmdDeleteTask = new System.Windows.Forms.Button();
             this.cmdAddListItem = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.cmdAddTask = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -223,11 +224,22 @@
             this.label6.TabIndex = 14;
             this.label6.Text = "Project List";
             // 
+            // cmdAddTask
+            // 
+            this.cmdAddTask.Location = new System.Drawing.Point(448, 341);
+            this.cmdAddTask.Name = "cmdAddTask";
+            this.cmdAddTask.Size = new System.Drawing.Size(75, 23);
+            this.cmdAddTask.TabIndex = 15;
+            this.cmdAddTask.Text = "Add Task";
+            this.cmdAddTask.UseVisualStyleBackColor = true;
+            this.cmdAddTask.Click += new System.EventHandler(this.cmdAddTask_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(731, 376);
+            this.Controls.Add(this.cmdAddTask);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cmdAddListItem);
             this.Controls.Add(this.cmdDeleteTask);
@@ -277,6 +289,7 @@
         private System.Windows.Forms.Button cmdDeleteTask;
         private System.Windows.Forms.Button cmdAddListItem;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button cmdAddTask;
 	}
 }
 

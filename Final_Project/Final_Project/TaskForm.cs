@@ -13,11 +13,18 @@ namespace Final_Project
     public partial class TaskForm : Form
     {
         Task task;
+        List list;
+        string typeOfAction;
 
         //constructor called when creating new task
-        public TaskForm()
+        public TaskForm(List list)
         {
             InitializeComponent();
+            this.list = list;
+            lblTaskName.Text = "Create new Task for Project " + list.Name;
+            cmdUpdate.Text = "Create";
+
+            typeOfAction = "create";
         }
 
         //constructor called when modifying task coming in
@@ -26,6 +33,8 @@ namespace Final_Project
             InitializeComponent();
             this.task = task;
             lblTaskName.Text += task.Name;
+
+            typeOfAction = "update";
         }
 
         private void TaskForm_Load(object sender, EventArgs e)
@@ -35,7 +44,15 @@ namespace Final_Project
 
         private void cmdUpdate_Click(object sender, EventArgs e)
         {
-            //update the database here
+            if(typeOfAction.Equals("create"))
+            {
+                //insert into the database here
+            }
+            else if(typeOfAction.Equals("update"))
+            {
+                //update the database here
+            }
+            
             this.Close();
         }
 
