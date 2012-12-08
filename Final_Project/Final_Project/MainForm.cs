@@ -16,6 +16,7 @@ namespace Final_Project
         DatabaseHelper dbHelper;
         int listSelectedIndex = 0;
         int taskSelectedIndex = -1;
+        List<Task> tasks;
 
 		public MainForm()
 		{
@@ -67,7 +68,7 @@ namespace Final_Project
             lblProjectName.Text = selectedList.Name;
 
             //populate taskBox
-            List<Task> tasks = dbHelper.GetTasksForList(selectedList.ID);
+            tasks = dbHelper.GetTasksForList(selectedList.ID);
             foreach (Task t in tasks)
             {
                 if (t.IsCompleted())
@@ -102,14 +103,32 @@ namespace Final_Project
         private void cmdViewTaskDetails_Click(object sender, EventArgs e)
         {
             taskSelectedIndex = taskBox.SelectedIndex;
-
+            
             if (taskSelectedIndex >= 0)
             {
-                TaskForm taskForm = new TaskForm();
+                Task task = tasks[taskSelectedIndex];
+
+                TaskForm taskForm = new TaskForm(task);
                 if (taskForm.ShowDialog() == DialogResult.OK)
                 {
                     GetData();
                     MessageBox.Show("updated");
+                }
+            }
+        }
+
+        private void cmdDeleteTask_Click(object sender, EventArgs e)
+        {
+            taskSelectedIndex = taskBox.SelectedIndex;
+            
+            if (taskSelectedIndex >= 0)
+            {
+                Task task = tasks[taskSelectedIndex];
+                
+                if((MessageBox.Show("Are you sure you want to delete this task?", "Delete Task", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes))
+                {
+                    //delete the selected task here
+                    GetData();
                 }
             }
         }

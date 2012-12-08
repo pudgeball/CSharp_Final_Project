@@ -30,6 +30,7 @@
         {
             this.cmdUpdate = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
+            this.lblTaskName = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cmdUpdate
@@ -54,17 +55,28 @@
             this.cmdCancel.UseVisualStyleBackColor = true;
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
             // 
+            // lblTaskName
+            // 
+            this.lblTaskName.AutoSize = true;
+            this.lblTaskName.Location = new System.Drawing.Point(90, 9);
+            this.lblTaskName.Name = "lblTaskName";
+            this.lblTaskName.Size = new System.Drawing.Size(37, 13);
+            this.lblTaskName.TabIndex = 2;
+            this.lblTaskName.Text = "Task: ";
+            // 
             // TaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(456, 331);
+            this.Controls.Add(this.lblTaskName);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdUpdate);
             this.Name = "TaskForm";
             this.Text = "TaskForm";
             this.Load += new System.EventHandler(this.TaskForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -72,5 +84,6 @@
 
         private System.Windows.Forms.Button cmdUpdate;
         private System.Windows.Forms.Button cmdCancel;
+        private System.Windows.Forms.Label lblTaskName;
     }
 }

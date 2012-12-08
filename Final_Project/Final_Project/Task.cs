@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Final_Project.Model
 {
-	class Task
+	public class Task
 	{
 		private string _name;
 		private string _description;

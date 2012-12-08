@@ -202,6 +202,7 @@
             this.cmdDeleteTask.TabIndex = 12;
             this.cmdDeleteTask.Text = "Delete Task";
             this.cmdDeleteTask.UseVisualStyleBackColor = true;
+            this.cmdDeleteTask.Click += new System.EventHandler(this.cmdDeleteTask_Click);
             // 
             // cmdAddListItem
             // 
