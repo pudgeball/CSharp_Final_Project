@@ -59,8 +59,9 @@ namespace Final_Project
 			}
             else if(typeOfAction.Equals("update"))
             {
+				dbHelper.DeleteTask(task);
 				task = new Task(txtName.Text, txtDescription.Text, monthCalendar1.SelectionStart);
-				//delete old task and add updated task
+				dbHelper.CreateTask(task);
             }
             
             this.Close();

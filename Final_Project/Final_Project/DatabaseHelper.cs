@@ -171,6 +171,17 @@ namespace Final_Project.Utilities
 			}
 		}
 
+		public void DeleteTask(Task task)
+		{
+			createCommand();
+			_conn.Open();
+			string sql = "DELETE FROM [Task] WHERE [Name] = '" + task.Name + "'";
+			_cmd.CommandText = sql;
+			_cmd.ExecuteNonQuery();
+			_conn.Close();
+
+		}
+
 		public void CreateList(List list)
 		{
 			createCommand();
