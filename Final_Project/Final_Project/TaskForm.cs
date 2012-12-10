@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Final_Project.Model;
+using Final_Project.Utilities;
 
 namespace Final_Project
 {
     public partial class TaskForm : Form
     {
+		DatabaseHelper dbHelper;
         Task task;
         List list;
         string typeOfAction;
@@ -23,8 +25,9 @@ namespace Final_Project
             this.list = list;
             lblTaskName.Text = "Create new Task for Project " + list.Name;
             cmdUpdate.Text = "Create";
-
+			
             typeOfAction = "create";
+			
         }
 
         //constructor called when modifying task coming in
@@ -34,7 +37,11 @@ namespace Final_Project
             this.task = task;
             lblTaskName.Text += task.Name;
 
-            typeOfAction = "update";
+			typeOfAction = "update"; 
+			txtName.Text = task.Name;
+			txtDescription.Text = task.Description;
+			monthCalendar1.SelectionStart = task.DueDate;
+
         }
 
         private void TaskForm_Load(object sender, EventArgs e)
@@ -44,13 +51,16 @@ namespace Final_Project
 
         private void cmdUpdate_Click(object sender, EventArgs e)
         {
+			dbHelper = new DatabaseHelper();
             if(typeOfAction.Equals("create"))
             {
-                //insert into the database here
-            }
+				Task t = new Task(txtName.Text, txtDescription.Text, monthCalendar1.SelectionStart);
+				dbHelper.CreateTask(t);
+			}
             else if(typeOfAction.Equals("update"))
             {
-                //update the database here
+				task = new Task(txtName.Text, txtDescription.Text, monthCalendar1.SelectionStart);
+				//delete old task and add updated task
             }
             
             this.Close();
@@ -60,6 +70,8 @@ namespace Final_Project
         {
             this.Close();
         }
+
+
 
     }
 }
