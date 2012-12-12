@@ -171,12 +171,32 @@ namespace Final_Project.Utilities
 			}
 		}
 
+		public void UpdateTask(Task task)
+		{
+			createCommand();
+
+			string sql = "UPDATE Task SET [description] = @description, [due] = @due, [completed] = @completed, [listID] = @listID WHERE [name] = @name";
+
+			_cmd.CommandText = sql;
+			_cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = task.Description;
+			_cmd.Parameters.Add("@due", System.Data.SqlDbType.DateTime).Value = task.DueDate;
+			_cmd.Parameters.Add("@completed", System.Data.SqlDbType.DateTime);
+			_cmd.Parameters.Add("@listID", System.Data.SqlDbType.Int).Value = task.ListID;
+
+			_conn.Open();
+			_cmd.ExecuteNonQuery();
+			_conn.Close();
+		}
+
 		public void DeleteTask(Task task)
 		{
 			createCommand();
-			_conn.Open();
-			string sql = "DELETE FROM [Task] WHERE [Name] = '" + task.Name + "'";
+
+			string sql = "DELETE FROM [Task] WHERE [name] = @taskName";
 			_cmd.CommandText = sql;
+			_cmd.Parameters.Add("@taskName", System.Data.SqlDbType.VarChar).Value = task.Name;
+
+			_conn.Open();
 			_cmd.ExecuteNonQuery();
 			_conn.Close();
 
