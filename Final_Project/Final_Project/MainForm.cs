@@ -52,14 +52,13 @@ namespace Final_Project
             int previousIndex = listSelectedIndex;
             listBox1.DataSource = allLists;
             listBox1.SelectedIndex = previousIndex;
+
+            drawProgressBar();
         }
 
         void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             listSelectedIndex = listBox1.SelectedIndex;
-            int numberOfTasks;
-            int numberOfCompletedTasks = 0;
-            double percentageOfTasksCompleted = 0;
             List selectedList = ((List)(listBox1.Items[listSelectedIndex]));
 
             //clear taskBox
@@ -75,30 +74,46 @@ namespace Final_Project
                 if (t.IsCompleted())
                 {
                     taskBox.Items.Add("[COMPLETED] " + t.Name);
-                    numberOfCompletedTasks++;
                 }
                 else
                 {
                     taskBox.Items.Add("[INCOMPLETE] " + t.Name);
                 }
+            }
+
+            drawProgressBar();
+        }
+
+        private void drawProgressBar()
+        {
+            listSelectedIndex = listBox1.SelectedIndex;
+            int numberOfTasks;
+            int numberOfCompletedTasks = 0;
+            double percentageOfTasksCompleted = 0;
+            List selectedList = ((List)(listBox1.Items[listSelectedIndex]));
+
+            if (listSelectedIndex >= 0)
+            {
+                tasks = dbHelper.GetTasksForList(selectedList.ID);
+                numberOfTasks = tasks.Count;
+
+                foreach (Task t in tasks)
+                {
+                    if (t.IsCompleted()) { numberOfCompletedTasks++; }
+                }
                 
-                //Console.WriteLine(t.Name);
-            }
+                try
+                {
+                    percentageOfTasksCompleted = (numberOfCompletedTasks / numberOfTasks) * 100.0;
+                }
+                catch (DivideByZeroException)
+                {
+                    percentageOfTasksCompleted = 100;
+                }
 
-            //calculate percentage of tasks completed
-            numberOfTasks = taskBox.Items.Count;
-            try
-            {
-                percentageOfTasksCompleted = (numberOfCompletedTasks / numberOfTasks) * 100.0;
+                completionBar.BackColor = Color.Green;
+                completionBar.Width = (int)(500 * (percentageOfTasksCompleted / 100));
             }
-            catch (DivideByZeroException)
-            {
-                percentageOfTasksCompleted = 100;
-            }
-
-            //set completion bar width
-            completionBar.BackColor = Color.Green;
-            completionBar.Width = (int)(500 * (percentageOfTasksCompleted / 100));
         }
 
         private void cmdViewTaskDetails_Click(object sender, EventArgs e)
@@ -129,6 +144,7 @@ namespace Final_Project
                 if((MessageBox.Show("Are you sure you want to delete this task?", "Delete Task", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes))
                 {
                     //delete the selected task here
+                    dbHelper.DeleteTask(task);
                     GetData();
                 }
             }
