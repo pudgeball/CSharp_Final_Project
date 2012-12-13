@@ -30,14 +30,14 @@ namespace Final_Project.Utilities
 		{
 			int listCount = -1;
 
-			string listSQL = "SELECT COUNT(*) as ListCount FROM [List]";
+			string listSQL = "SELECT [id] FROM [List] ORDER BY [id] DESC";
 			_cmd.CommandText = listSQL;
 			_conn.Open();
 			SqlDataReader dr = _cmd.ExecuteReader();
 			if (dr.HasRows)
 			{
 				dr.Read();
-				listCount = Convert.ToInt32(dr["ListCount"]);
+				listCount = Convert.ToInt32(dr["id"]) + 1;
 			}
 			dr.Close();
 			_conn.Close();
@@ -48,7 +48,7 @@ namespace Final_Project.Utilities
 		public int GetTaskCount()
 		{
 			int taskCount = -1;
-			string sql = "SELECT COUNT(*) as TaskCount FROM [Task]";
+			string sql = "SELECT [id] FROM [Task] ORDER BY [id] DESC";
 			_cmd.CommandText = sql;
 			_conn.Open();
 			SqlDataReader dr = _cmd.ExecuteReader();
@@ -56,7 +56,7 @@ namespace Final_Project.Utilities
 			if (dr.HasRows)
 			{
 				dr.Read();
-				taskCount = Convert.ToInt32(dr.GetValue(0));
+				taskCount = Convert.ToInt32(dr["id"]) + 1;
 			}
 			dr.Close();
 			_conn.Close();
@@ -256,8 +256,6 @@ namespace Final_Project.Utilities
 
 		public void DeleteList(List list)
 		{
-			createCommand();
-
 			List<Task> tasks = GetTasksForList(list.ID);
 
 			foreach (Task task in tasks)
@@ -265,6 +263,7 @@ namespace Final_Project.Utilities
 				DeleteTask(task);
 			}
 
+			createCommand();
 			string sql = "DELETE FROM [List] WHERE [id] = @listId";
 			_cmd.CommandText = sql;
 			_cmd.Parameters.Add("@listId", System.Data.SqlDbType.Int).Value = list.ID;

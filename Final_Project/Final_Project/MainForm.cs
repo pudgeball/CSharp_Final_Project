@@ -51,7 +51,16 @@ namespace Final_Project
 
             int previousIndex = listSelectedIndex;
             listBox1.DataSource = allLists;
-            listBox1.SelectedIndex = previousIndex;
+
+			if ((previousIndex + 1) > allLists.Count)
+			{
+				listBox1.SelectedIndex = previousIndex - 1;
+			}
+			else
+			{
+				listBox1.SelectedIndex = previousIndex;
+			}
+            
 
             drawProgressBar();
         }
@@ -215,5 +224,13 @@ namespace Final_Project
             addListItemForm.ShowDialog();
             GetData();
         }
+
+		private void cmdDeleteListItem_Click(object sender, EventArgs e)
+		{
+			List selectedList = ((List)(listBox1.Items[listSelectedIndex]));
+			dbHelper.DeleteList(selectedList);
+			GetData();
+		}
+
 	}
 }

@@ -35,8 +35,7 @@ namespace Final_Project
         {
             InitializeComponent();
             this.task = task;
-            lblTaskName.Text += task.Name;
-
+            lblTaskName.Text = "Update Task";
 			typeOfAction = "update"; 
 			txtName.Text = task.Name;
 			txtDescription.Text = task.Description;
@@ -48,8 +47,17 @@ namespace Final_Project
         {
 			txtName.LostFocus += new EventHandler(txtName_LostFocus);
 			txtDescription.LostFocus +=new EventHandler(txtDescription_LostFocus);
-			//txtDescription.LostFocus += new EventHandler(txtDescription_LostFocus);
+
+			txtName.KeyPress += new KeyPressEventHandler(txtName_KeyPress);
         }
+
+		void txtName_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			int c = e.KeyChar;
+			if (c != 8)
+			{
+			}
+		}
 
 		void txtDescription_LostFocus(object sender, EventArgs e)
 		{
