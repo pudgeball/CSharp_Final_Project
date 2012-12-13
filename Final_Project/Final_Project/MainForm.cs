@@ -102,7 +102,16 @@ namespace Final_Project
             {
                 cmdViewTaskDetails.Enabled = true;
                 cmdDeleteTask.Enabled = true;
-                cmdCompleteTask.Enabled = true;
+
+                Task task = tasks[taskSelectedIndex];
+                if (!task.IsCompleted())
+                {
+                    cmdCompleteTask.Enabled = true;
+                }
+                else
+                {
+                    cmdCompleteTask.Enabled = false;
+                }
             }
         }
 
@@ -150,6 +159,7 @@ namespace Final_Project
                 Task task = tasks[taskSelectedIndex];
 
                 TaskForm taskForm = new TaskForm(task);
+                taskForm.StartPosition = FormStartPosition.CenterParent;
                 if (taskForm.ShowDialog() == DialogResult.OK)
                 {
                     GetData();
@@ -184,12 +194,8 @@ namespace Final_Project
 
                 TaskForm taskForm = new TaskForm(list);
 
-                System.Windows.Forms.DialogResult resultant = taskForm.ShowDialog();
-				while (resultant == System.Windows.Forms.DialogResult.Retry)
-				{
-					resultant = taskForm.ShowDialog();
-				}
-				
+                ShowTaskForm(taskForm);
+
                 GetData();
             }
         }
@@ -197,7 +203,9 @@ namespace Final_Project
         private void cmdAddListItem_Click(object sender, EventArgs e)
         {
             AddListItemForm addListItemForm = new AddListItemForm();
-            addListItemForm.ShowDialog();
+
+            ShowAddListForm(addListItemForm);
+
             GetData();
         }
 
@@ -218,7 +226,7 @@ namespace Final_Project
         private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddListItemForm addListItemForm = new AddListItemForm();
-            addListItemForm.ShowDialog();
+            ShowAddListForm(addListItemForm);
             GetData();
         }
 
@@ -234,6 +242,27 @@ namespace Final_Project
             lblProjectName.Text = "";
             taskBox.Items.Clear();
             completionBar.Width = 0;
+        }
+
+        private void ShowAddListForm(AddListItemForm addListForm)
+        {
+            addListForm.StartPosition = FormStartPosition.CenterParent;
+
+            System.Windows.Forms.DialogResult resultant = addListForm.ShowDialog();
+            while (resultant == System.Windows.Forms.DialogResult.Retry)
+            {
+                resultant = addListForm.ShowDialog();
+            }
+        }
+
+        private void ShowTaskForm(TaskForm taskForm)
+        {
+            taskForm.StartPosition = FormStartPosition.CenterParent;
+            System.Windows.Forms.DialogResult resultant = taskForm.ShowDialog();
+            while (resultant == System.Windows.Forms.DialogResult.Retry)
+            {
+                resultant = taskForm.ShowDialog();
+            }
         }
 	}
 }

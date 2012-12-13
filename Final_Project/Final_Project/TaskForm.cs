@@ -49,7 +49,7 @@ namespace Final_Project
 			
 			txtName.LostFocus += new EventHandler(txtName_LostFocus);
 			txtDescription.LostFocus +=new EventHandler(txtDescription_LostFocus);
-
+            
 			txtName.KeyPress += new KeyPressEventHandler(txtName_KeyPress);
 			txtDescription.KeyPress += new KeyPressEventHandler(txtDescription_KeyPress);
 
