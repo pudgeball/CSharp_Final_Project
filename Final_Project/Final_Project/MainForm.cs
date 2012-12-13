@@ -60,6 +60,7 @@ namespace Final_Project
         {
             cmdViewTaskDetails.Enabled = false;
             cmdDeleteTask.Enabled = false;
+            cmdCompleteTask.Enabled = false;
 
             listSelectedIndex = listBox1.SelectedIndex;
             List selectedList = ((List)(listBox1.Items[listSelectedIndex]));
@@ -85,6 +86,18 @@ namespace Final_Project
             }
 
             drawProgressBar();
+        }
+
+        private void taskBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            taskSelectedIndex = taskBox.SelectedIndex;
+
+            if (taskSelectedIndex >= 0)
+            {
+                cmdViewTaskDetails.Enabled = true;
+                cmdDeleteTask.Enabled = true;
+                cmdCompleteTask.Enabled = true;
+            }
         }
 
         private void drawProgressBar()
@@ -177,10 +190,15 @@ namespace Final_Project
             GetData();
         }
 
-        private void taskBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmdCompleteTask_Click(object sender, EventArgs e)
         {
-            cmdViewTaskDetails.Enabled = true;
-            cmdDeleteTask.Enabled = true;
+            taskSelectedIndex = taskBox.SelectedIndex;
+
+            Task task = tasks[taskSelectedIndex];
+
+            //update the task to be completed
+            dbHelper.UpdateTask(task);
+            GetData();
         }
 	}
 }
