@@ -106,13 +106,13 @@ namespace Final_Project.Model
 
         public bool IsCompleted()
         {
-            if (_completed != null)
+            if (_completed != DateTime.MinValue)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 		

@@ -115,12 +115,15 @@ namespace Final_Project
 
                 foreach (Task t in tasks)
                 {
-                    if (t.IsCompleted()) { numberOfCompletedTasks++; }
+                    if (t.IsCompleted()) 
+                    { 
+                        numberOfCompletedTasks++; 
+                    }
                 }
                 
                 try
                 {
-                    percentageOfTasksCompleted = (numberOfCompletedTasks / numberOfTasks) * 100.0;
+                    percentageOfTasksCompleted = ((float)numberOfCompletedTasks / (float)numberOfTasks) * 100.0;
                 }
                 catch (DivideByZeroException)
                 {
@@ -197,6 +200,7 @@ namespace Final_Project
             Task task = tasks[taskSelectedIndex];
 
             //update the task to be completed
+            task.SetCompleted(true);
             dbHelper.UpdateTask(task);
             GetData();
         }
