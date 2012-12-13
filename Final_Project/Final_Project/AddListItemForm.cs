@@ -13,7 +13,7 @@ namespace Final_Project
 {
     public partial class AddListItemForm : Form
     {
-        string projectName = "temp";
+        string projectName = "";
 
         public AddListItemForm()
         {
@@ -22,15 +22,6 @@ namespace Final_Project
 
         private void AddListItemForm_Load(object sender, EventArgs e)
         {
-            txtProjectName.KeyDown += new KeyEventHandler(txtProjectName_KeyDown);
-        }
-
-        void txtProjectName_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                CreateNewList();
-            }
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
@@ -60,8 +51,6 @@ namespace Final_Project
                 MessageBox.Show("Enter a List Item Name", "List Item Add Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.DialogResult = System.Windows.Forms.DialogResult.Retry;
             }
-
-            this.Close();
         }
 
         private bool DataGood()
