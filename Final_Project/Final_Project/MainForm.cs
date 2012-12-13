@@ -58,6 +58,9 @@ namespace Final_Project
 
         void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cmdViewTaskDetails.Enabled = false;
+            cmdDeleteTask.Enabled = false;
+
             listSelectedIndex = listBox1.SelectedIndex;
             List selectedList = ((List)(listBox1.Items[listSelectedIndex]));
 
@@ -172,6 +175,12 @@ namespace Final_Project
             AddListItemForm addListItemForm = new AddListItemForm();
             addListItemForm.ShowDialog();
             GetData();
+        }
+
+        private void taskBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmdViewTaskDetails.Enabled = true;
+            cmdDeleteTask.Enabled = true;
         }
 	}
 }

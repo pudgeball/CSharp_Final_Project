@@ -108,6 +108,7 @@
             this.taskBox.Name = "taskBox";
             this.taskBox.Size = new System.Drawing.Size(501, 160);
             this.taskBox.TabIndex = 2;
+            this.taskBox.SelectedIndexChanged += new System.EventHandler(this.taskBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -187,6 +188,7 @@
             // 
             // cmdViewTaskDetails
             // 
+            this.cmdViewTaskDetails.Enabled = false;
             this.cmdViewTaskDetails.Location = new System.Drawing.Point(610, 341);
             this.cmdViewTaskDetails.Name = "cmdViewTaskDetails";
             this.cmdViewTaskDetails.Size = new System.Drawing.Size(107, 23);
@@ -197,6 +199,7 @@
             // 
             // cmdDeleteTask
             // 
+            this.cmdDeleteTask.Enabled = false;
             this.cmdDeleteTask.Location = new System.Drawing.Point(529, 341);
             this.cmdDeleteTask.Name = "cmdDeleteTask";
             this.cmdDeleteTask.Size = new System.Drawing.Size(75, 23);
