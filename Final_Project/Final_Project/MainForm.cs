@@ -30,18 +30,6 @@ namespace Final_Project
             listBox1.SelectedIndexChanged += new EventHandler(listBox1_SelectedIndexChanged);
 
             GetData();
-
-			/*Task task = new Task("Do homework", "Need to finish this C#", new DateTime(2012, 5, 3));
-			task.ListID = 0;
-
-			Console.WriteLine(task.IsCompleted());
-			Console.WriteLine(task.Name);
-			Console.WriteLine(task.Description);
-			Console.WriteLine(task.DueDate);
-			Console.WriteLine(task.Completed);
-			Console.WriteLine(task.ListID);
-
-			dbHelper.CreateTask(task);*/
 		}
 
         private void GetData()
@@ -54,15 +42,20 @@ namespace Final_Project
 
 			if ((previousIndex + 1) > allLists.Count)
 			{
-				listBox1.SelectedIndex = previousIndex - 1;
+                if (allLists.Count == 0)
+                {
+                    listBox1.ClearSelected();
+                    ResetInterface();
+                }
+                else
+                {
+                    listBox1.SelectedIndex = previousIndex - 1;
+                }
 			}
 			else
 			{
 				listBox1.SelectedIndex = previousIndex;
 			}
-            
-
-            drawProgressBar();
         }
 
         void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -72,29 +65,33 @@ namespace Final_Project
             cmdCompleteTask.Enabled = false;
 
             listSelectedIndex = listBox1.SelectedIndex;
-            List selectedList = ((List)(listBox1.Items[listSelectedIndex]));
 
-            //clear taskBox
-            taskBox.Items.Clear();
-
-            //set label
-            lblProjectName.Text = selectedList.Name;
-
-            //populate taskBox
-            tasks = dbHelper.GetTasksForList(selectedList.ID);
-            foreach (Task t in tasks)
+            if (listSelectedIndex != -1)
             {
-                if (t.IsCompleted())
-                {
-                    taskBox.Items.Add("[COMPLETED] " + t.Name);
-                }
-                else
-                {
-                    taskBox.Items.Add("[INCOMPLETE] " + t.Name);
-                }
-            }
+                List selectedList = ((List)(listBox1.Items[listSelectedIndex]));
 
-            drawProgressBar();
+                //clear taskBox
+                taskBox.Items.Clear();
+
+                //set label
+                lblProjectName.Text = selectedList.Name;
+
+                //populate taskBox
+                tasks = dbHelper.GetTasksForList(selectedList.ID);
+                foreach (Task t in tasks)
+                {
+                    if (t.IsCompleted())
+                    {
+                        taskBox.Items.Add("[COMPLETED] " + t.Name);
+                    }
+                    else
+                    {
+                        taskBox.Items.Add("[INCOMPLETE] " + t.Name);
+                    }
+                }
+
+                drawProgressBar();
+            }
         }
 
         private void taskBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -232,5 +229,11 @@ namespace Final_Project
 			GetData();
 		}
 
+        private void ResetInterface()
+        {
+            lblProjectName.Text = "";
+            taskBox.Items.Clear();
+            completionBar.Width = 0;
+        }
 	}
 }
