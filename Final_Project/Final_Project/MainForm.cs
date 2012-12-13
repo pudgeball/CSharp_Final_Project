@@ -177,14 +177,12 @@ namespace Final_Project
                 List list = allLists[listSelectedIndex];
 
                 TaskForm taskForm = new TaskForm(list);
-				if (taskForm.ShowDialog() == System.Windows.Forms.DialogResult.Retry)
+				while (taskForm.ShowDialog() == System.Windows.Forms.DialogResult.Retry)
 				{
 					taskForm.ShowDialog();
 				}
 				
-				//taskForm.Show();
-                    GetData();
-                
+                GetData();
             }
         }
 
