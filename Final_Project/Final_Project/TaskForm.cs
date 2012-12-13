@@ -46,8 +46,30 @@ namespace Final_Project
 
         private void TaskForm_Load(object sender, EventArgs e)
         {
-
+			txtName.LostFocus += new EventHandler(txtName_LostFocus);
+			txtDescription.LostFocus +=new EventHandler(txtDescription_LostFocus);
+			//txtDescription.LostFocus += new EventHandler(txtDescription_LostFocus);
         }
+
+		void txtDescription_LostFocus(object sender, EventArgs e)
+		{
+			if (txtDescription.Text.Length == 0)
+			{
+				lblDescription.BackColor = Color.Red;
+				
+			}
+
+		}
+
+		void txtName_LostFocus(object sender, EventArgs e)
+		{
+			if (txtName.Text.Length == 0)
+			{
+				//txtName.Focus();
+				lblTask.BackColor = Color.Red;
+			}
+			
+		}
 
         private void cmdUpdate_Click(object sender, EventArgs e)
         {
@@ -58,6 +80,7 @@ namespace Final_Project
 				{
 					Task t = new Task(list.ID, txtName.Text, txtDescription.Text, monthCalendar1.SelectionStart, DateTime.MinValue);
 					dbHelper.CreateTask(t);
+					this.DialogResult = System.Windows.Forms.DialogResult.OK;
 				}
 				else if (typeOfAction.Equals("update"))
 				{
@@ -67,25 +90,39 @@ namespace Final_Project
 					task.DueDate = monthCalendar1.SelectionStart;
 					dbHelper.UpdateTask(task);
 				}
+
+				this.Close();
+			}
+			else
+			{
+				this.DialogResult = System.Windows.Forms.DialogResult.Retry;
 			}
             
-            this.Close();
         }
 
         private void cmdCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+			this.Close();
         }
 
 		public bool DataGood()
 		{
 			if (txtName.Text.Length < 1)
 			{
-				MessageBox.Show("Enter a task name.", "Task name error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				//MessageBox.Show("Enter a task name.", "Task name error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				lblError.Text = "Enter a task name!";
 				txtName.Focus();
 				return false;
 			}
+			if (txtDescription.Text.Length < 1)
+			{
+				lblError.Text = "Enter a description!";
+				txtDescription.Focus();
+				return false;
+			}
+			lblError.Text = "";
 			return true;
+			
 		}
 
 

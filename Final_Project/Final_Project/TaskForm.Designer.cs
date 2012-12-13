@@ -31,18 +31,19 @@
 			this.cmdUpdate = new System.Windows.Forms.Button();
 			this.cmdCancel = new System.Windows.Forms.Button();
 			this.lblTaskName = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
+			this.lblTask = new System.Windows.Forms.Label();
 			this.txtName = new System.Windows.Forms.TextBox();
-			this.label2 = new System.Windows.Forms.Label();
+			this.lblDescription = new System.Windows.Forms.Label();
 			this.txtDescription = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+			this.lblError = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// cmdUpdate
 			// 
 			this.cmdUpdate.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.cmdUpdate.Location = new System.Drawing.Point(110, 370);
+			this.cmdUpdate.Location = new System.Drawing.Point(110, 415);
 			this.cmdUpdate.Name = "cmdUpdate";
 			this.cmdUpdate.Size = new System.Drawing.Size(75, 23);
 			this.cmdUpdate.TabIndex = 0;
@@ -53,7 +54,7 @@
 			// cmdCancel
 			// 
 			this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.cmdCancel.Location = new System.Drawing.Point(262, 370);
+			this.cmdCancel.Location = new System.Drawing.Point(262, 415);
 			this.cmdCancel.Name = "cmdCancel";
 			this.cmdCancel.Size = new System.Drawing.Size(75, 23);
 			this.cmdCancel.TabIndex = 1;
@@ -70,14 +71,14 @@
 			this.lblTaskName.TabIndex = 2;
 			this.lblTaskName.Text = "Task: ";
 			// 
-			// label1
+			// lblTask
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(30, 32);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(68, 13);
-			this.label1.TabIndex = 3;
-			this.label1.Text = "Task Name: ";
+			this.lblTask.AutoSize = true;
+			this.lblTask.Location = new System.Drawing.Point(30, 32);
+			this.lblTask.Name = "lblTask";
+			this.lblTask.Size = new System.Drawing.Size(68, 13);
+			this.lblTask.TabIndex = 3;
+			this.lblTask.Text = "Task Name: ";
 			// 
 			// txtName
 			// 
@@ -87,14 +88,14 @@
 			this.txtName.Size = new System.Drawing.Size(227, 20);
 			this.txtName.TabIndex = 4;
 			// 
-			// label2
+			// lblDescription
 			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(5, 60);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(93, 13);
-			this.label2.TabIndex = 5;
-			this.label2.Text = "Task Description: ";
+			this.lblDescription.AutoSize = true;
+			this.lblDescription.Location = new System.Drawing.Point(5, 60);
+			this.lblDescription.Name = "lblDescription";
+			this.lblDescription.Size = new System.Drawing.Size(93, 13);
+			this.lblDescription.TabIndex = 5;
+			this.lblDescription.Text = "Task Description: ";
 			// 
 			// txtDescription
 			// 
@@ -120,17 +121,28 @@
 			this.monthCalendar1.Name = "monthCalendar1";
 			this.monthCalendar1.TabIndex = 8;
 			// 
+			// lblError
+			// 
+			this.lblError.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblError.ForeColor = System.Drawing.Color.Red;
+			this.lblError.Location = new System.Drawing.Point(8, 367);
+			this.lblError.Name = "lblError";
+			this.lblError.Size = new System.Drawing.Size(397, 45);
+			this.lblError.TabIndex = 9;
+			this.lblError.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
 			// TaskForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(417, 405);
+			this.ClientSize = new System.Drawing.Size(417, 450);
+			this.Controls.Add(this.lblError);
 			this.Controls.Add(this.monthCalendar1);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.txtDescription);
-			this.Controls.Add(this.label2);
+			this.Controls.Add(this.lblDescription);
 			this.Controls.Add(this.txtName);
-			this.Controls.Add(this.label1);
+			this.Controls.Add(this.lblTask);
 			this.Controls.Add(this.lblTaskName);
 			this.Controls.Add(this.cmdCancel);
 			this.Controls.Add(this.cmdUpdate);
@@ -147,11 +159,12 @@
         private System.Windows.Forms.Button cmdUpdate;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Label lblTaskName;
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label lblTask;
 		private System.Windows.Forms.TextBox txtName;
-		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label lblDescription;
 		private System.Windows.Forms.TextBox txtDescription;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.MonthCalendar monthCalendar1;
+		private System.Windows.Forms.Label lblError;
     }
 }
