@@ -233,8 +233,11 @@ namespace Final_Project
 		private void cmdDeleteListItem_Click(object sender, EventArgs e)
 		{
 			List selectedList = ((List)(listBox1.Items[listSelectedIndex]));
-			dbHelper.DeleteList(selectedList);
-			GetData();
+			if ((MessageBox.Show("Are you sure you want to delete this list?", "Delete List", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes))
+			{
+				dbHelper.DeleteList(selectedList);
+				GetData();
+			}
 		}
 
         private void ResetInterface()
