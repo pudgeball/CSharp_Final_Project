@@ -30,18 +30,6 @@ namespace Final_Project
             listBox1.SelectedIndexChanged += new EventHandler(listBox1_SelectedIndexChanged);
 
             GetData();
-
-			/*Task task = new Task("Do homework", "Need to finish this C#", new DateTime(2012, 5, 3));
-			task.ListID = 0;
-
-			Console.WriteLine(task.IsCompleted());
-			Console.WriteLine(task.Name);
-			Console.WriteLine(task.Description);
-			Console.WriteLine(task.DueDate);
-			Console.WriteLine(task.Completed);
-			Console.WriteLine(task.ListID);
-
-			dbHelper.CreateTask(task);*/
 		}
 
         private void GetData()
@@ -60,6 +48,7 @@ namespace Final_Project
         {
             cmdViewTaskDetails.Enabled = false;
             cmdDeleteTask.Enabled = false;
+            cmdCompleteTask.Enabled = false;
             cmdCompleteTask.Enabled = false;
 
             listSelectedIndex = listBox1.SelectedIndex;
@@ -91,12 +80,22 @@ namespace Final_Project
         private void taskBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             taskSelectedIndex = taskBox.SelectedIndex;
+            Task task = tasks[taskSelectedIndex];
 
             if (taskSelectedIndex >= 0)
             {
                 cmdViewTaskDetails.Enabled = true;
                 cmdDeleteTask.Enabled = true;
                 cmdCompleteTask.Enabled = true;
+
+                if (task.IsCompleted())
+                {
+                    cmdCompleteTask.Enabled = false;
+                }
+                else
+                {
+                    cmdCompleteTask.Enabled = true;
+                }
             }
         }
 
@@ -203,6 +202,19 @@ namespace Final_Project
                 dbHelper.UpdateTask(task);
                 GetData();
             }
+        }
+
+        // Menu Strip event handlers
+        private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddListItemForm addListItemForm = new AddListItemForm();
+            addListItemForm.ShowDialog();
+            GetData();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 	}
 }
