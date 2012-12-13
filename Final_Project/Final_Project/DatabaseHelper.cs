@@ -56,7 +56,7 @@ namespace Final_Project.Utilities
 			if (dr.HasRows)
 			{
 				dr.Read();
-				taskCount = Convert.ToInt32(dr["TaskCount"]);
+				taskCount = Convert.ToInt32(dr.GetValue(0));
 			}
 			dr.Close();
 			_conn.Close();
