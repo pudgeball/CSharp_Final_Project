@@ -41,21 +41,57 @@ namespace Final_Project
 			txtDescription.Text = task.Description;
 			monthCalendar1.SelectionStart = task.DueDate;
 
+
         }
 
         private void TaskForm_Load(object sender, EventArgs e)
         {
+			
 			txtName.LostFocus += new EventHandler(txtName_LostFocus);
 			txtDescription.LostFocus +=new EventHandler(txtDescription_LostFocus);
 
 			txtName.KeyPress += new KeyPressEventHandler(txtName_KeyPress);
+			txtDescription.KeyPress += new KeyPressEventHandler(txtDescription_KeyPress);
+
+			this.Shown += new EventHandler(TaskForm_Shown);
+			
         }
 
+		void TaskForm_Shown(object sender, EventArgs e)
+		{
+			txtName.Focus();
+		}
+
+		void txtDescription_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			int c = e.KeyChar;
+			int len = ((TextBox)sender).Text.Length;
+			((TextBox)sender).SelectionStart = len;
+			if (c != 8)
+			{
+				if (len == 0 && (c > 96 && c < 123))
+				{
+					e.KeyChar = (char)(c - 32);
+				}
+			}
+		}
+
+	
 		void txtName_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			int c = e.KeyChar;
+			int len = ((TextBox)sender).Text.Length;
+			((TextBox)sender).SelectionStart = len;
 			if (c != 8)
 			{
+				if ((c < 97 || c > 122) && (c < 65 || c > 90) && (c < 48 || c > 57))
+				{
+					e.Handled = true;
+				}
+				else if (len == 0 && (c > 96 && c < 123))
+				{
+					e.KeyChar = (char)(c - 32);
+				}
 			}
 		}
 
