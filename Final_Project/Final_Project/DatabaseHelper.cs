@@ -253,5 +253,24 @@ namespace Final_Project.Utilities
 			_cmd.ExecuteNonQuery();
 			_conn.Close();
 		}
+
+		public void DeleteList(List list)
+		{
+			createCommand();
+
+			List<Task> tasks = GetTasksForList(list.ID);
+
+			foreach (Task task in tasks)
+			{
+				DeleteTask(task);
+			}
+
+			string sql = "DELETE FROM [List] WHERE [listID] = @listID";
+			_cmd.CommandText = sql;
+			_cmd.Parameters.Add("@listID", System.Data.SqlDbType.Int).Value = list.ID;
+			_conn.Open();
+			_cmd.ExecuteNonQuery();
+			_conn.Close();
+		}
 	}
 }
