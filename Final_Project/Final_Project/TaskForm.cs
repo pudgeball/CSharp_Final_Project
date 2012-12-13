@@ -52,19 +52,22 @@ namespace Final_Project
         private void cmdUpdate_Click(object sender, EventArgs e)
         {
 			dbHelper = new DatabaseHelper();
-            if(typeOfAction.Equals("create"))
-            {
-				Task t = new Task(list.ID, txtName.Text, txtDescription.Text, monthCalendar1.SelectionStart, DateTime.MinValue);
-				dbHelper.CreateTask(t);
+			if (DataGood())
+			{
+				if (typeOfAction.Equals("create"))
+				{
+					Task t = new Task(list.ID, txtName.Text, txtDescription.Text, monthCalendar1.SelectionStart, DateTime.MinValue);
+					dbHelper.CreateTask(t);
+				}
+				else if (typeOfAction.Equals("update"))
+				{
+					//task = new Task(txtName.Text, txtDescription.Text, monthCalendar1.SelectionStart);
+					task.Name = txtName.Text;
+					task.Description = txtDescription.Text;
+					task.DueDate = monthCalendar1.SelectionStart;
+					dbHelper.UpdateTask(task);
+				}
 			}
-            else if(typeOfAction.Equals("update"))
-            {
-				//task = new Task(txtName.Text, txtDescription.Text, monthCalendar1.SelectionStart);
-				task.Name = txtName.Text;
-				task.Description = txtDescription.Text;
-				task.DueDate = monthCalendar1.SelectionStart;
-				dbHelper.UpdateTask(task);
-            }
             
             this.Close();
         }
@@ -73,6 +76,17 @@ namespace Final_Project
         {
             this.Close();
         }
+
+		public bool DataGood()
+		{
+			if (txtName.Text.Length < 1)
+			{
+				MessageBox.Show("Enter a task name.", "Task name error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				txtName.Focus();
+				return false;
+			}
+			return true;
+		}
 
 
 
