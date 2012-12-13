@@ -109,7 +109,8 @@ namespace Final_Project.Utilities
 					string description = dr["description"].ToString();
 					DateTime due = Convert.ToDateTime(dr["due"]);
 					DateTime completed = DateTime.MinValue;
-					if (!dr.IsDBNull(3))
+					//Yes this sucks, but it wants an ordinal :(
+					if (!dr.IsDBNull(5))
 					{
 						 completed = Convert.ToDateTime(dr["completed"]);
 					}
@@ -155,18 +156,22 @@ namespace Final_Project.Utilities
 		public void CreateTask(Task task)
 		{
 			createCommand();
-			_conn.Open();
+
+			if (task.ID == -1)
+			{
+				task.ID = GetTaskCount();
+			}
 
 			try
 			{
-				string sql = "INSERT INTO [Task] ([id], [name], [description], [due], [completed], [listID]) VALUES(@id, @name, @description, @due, @completed, @listID)";
+				string sql = "INSERT INTO [Task] ([id], [listID], [name], [description], [due], [completed]) VALUES(@id, @listID, @name, @description, @due, @completed)";
 				_cmd.CommandText = sql;
 				_cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = task.ID;
+				_cmd.Parameters.Add("@listID", System.Data.SqlDbType.Int).Value = task.ListID;
 				_cmd.Parameters.Add("@name", System.Data.SqlDbType.VarChar).Value = task.Name;
 				_cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = task.Description;
 				_cmd.Parameters.Add("@due", System.Data.SqlDbType.DateTime).Value = task.DueDate;
 				_cmd.Parameters.Add("@completed", System.Data.SqlDbType.DateTime);
-				_cmd.Parameters.Add("@listID", System.Data.SqlDbType.Int).Value = task.ListID;
 
 				if (task.IsCompleted())
 				{
@@ -177,20 +182,13 @@ namespace Final_Project.Utilities
 					_cmd.Parameters["@completed"].Value = DBNull.Value;
 				}
 
-				if (task.ID == -1)
-				{
-					task.ID = GetTaskCount();
-				}
-
+				_conn.Open();
 				_cmd.ExecuteNonQuery();
+				_conn.Close();
 			}
 			catch (SqlException ex)
 			{
 				Console.WriteLine(ex.Message);
-			}
-			finally
-			{
-				_conn.Close();
 			}
 		}
 

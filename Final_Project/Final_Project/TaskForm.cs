@@ -54,7 +54,7 @@ namespace Final_Project
 			dbHelper = new DatabaseHelper();
             if(typeOfAction.Equals("create"))
             {
-				Task t = new Task(txtName.Text, txtDescription.Text, monthCalendar1.SelectionStart);
+				Task t = new Task(list.ID, txtName.Text, txtDescription.Text, monthCalendar1.SelectionStart, DateTime.MinValue);
 				dbHelper.CreateTask(t);
 			}
             else if(typeOfAction.Equals("update"))
