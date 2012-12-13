@@ -7,11 +7,37 @@ namespace Final_Project.Model
 {
 	public class Task
 	{
+		private int _id;
+		private int _listID;
 		private string _name;
 		private string _description;
 		private DateTime _dueDate;
 		private DateTime _completed;
-		private int _listID;
+
+		public int ID
+		{
+			get
+			{
+				return _id;
+			}
+			set
+			{
+				_id = value;
+			}
+		}
+
+		public int ListID
+		{
+			get
+			{
+				return _listID;
+			}
+
+			set
+			{
+				_listID = value;
+			}
+		}
 
 		public string Name
 		{
@@ -60,28 +86,18 @@ namespace Final_Project.Model
 			private set { }
 		}
 
-		public int ListID
-		{
-			get
-			{
-				return _listID;
-			}
-
-			set
-			{
-				_listID = value;
-			}
-		}
-
 		public Task(string Name, string Description, DateTime DueDate)
 		{
+			this.ID = -1;
 			this.Name = Name;
 			this.Description = Description;
 			this.DueDate = DueDate;
 		}
 
-		public Task(string Name, string Description, DateTime DueDate, DateTime Completed)
+		public Task(int ListID, string Name, string Description, DateTime DueDate, DateTime Completed)
 		{
+			this.ID = -1;
+			this.ListID = ListID;
 			this.Name = Name;
 			this.Description = Description;
 			this.DueDate = DueDate;

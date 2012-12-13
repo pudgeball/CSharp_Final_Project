@@ -45,6 +45,25 @@ namespace Final_Project.Utilities
 			return listCount;
 		}
 
+		public int GetTaskCount()
+		{
+			int taskCount = -1;
+			string sql = "SELECT COUNT(*) as TaskCount FROM [Task]";
+			_cmd.CommandText = sql;
+			_conn.Open();
+			SqlDataReader dr = _cmd.ExecuteReader();
+
+			if (dr.HasRows)
+			{
+				dr.Read();
+				taskCount = Convert.ToInt32(dr["TaskCount"]);
+			}
+			dr.Close();
+			_conn.Close();
+
+			return taskCount;
+		}
+
 		public List GetList(int ListID)
 		{
 			createCommand();
@@ -84,6 +103,8 @@ namespace Final_Project.Utilities
 			{
 				while(dr.Read())
 				{
+					int ID = Convert.ToInt32(dr["id"]);
+					int listID = Convert.ToInt32(dr["listID"]);
 					string name = dr["name"].ToString();
 					string description = dr["description"].ToString();
 					DateTime due = Convert.ToDateTime(dr["due"]);
@@ -92,15 +113,14 @@ namespace Final_Project.Utilities
 					{
 						 completed = Convert.ToDateTime(dr["completed"]);
 					}
-					int listID = Convert.ToInt32(dr["listID"]);
-					Task task = new Task(name, description, due, completed);
-					task.ListID = listID;
+					
+					Task task = new Task(listID, name, description, due, completed);
+					task.ID = ID;
 					tasks.Add(task);
 				}
 			}
 			dr.Close();
 			_conn.Close();
-
 
 			return tasks;
 		}
@@ -136,18 +156,18 @@ namespace Final_Project.Utilities
 		{
 			createCommand();
 			_conn.Open();
-			SqlTransaction transaction = _conn.BeginTransaction();
-            
-			_cmd.Transaction = transaction;
+
 			try
 			{
-				string sql = "INSERT INTO [Task] ([name], [description], [due], [completed], [listID]) VALUES(@name, @description, @due, @completed, @listID)";
+				string sql = "INSERT INTO [Task] ([id], [name], [description], [due], [completed], [listID]) VALUES(@id, @name, @description, @due, @completed, @listID)";
 				_cmd.CommandText = sql;
+				_cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = task.ID;
 				_cmd.Parameters.Add("@name", System.Data.SqlDbType.VarChar).Value = task.Name;
 				_cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = task.Description;
 				_cmd.Parameters.Add("@due", System.Data.SqlDbType.DateTime).Value = task.DueDate;
 				_cmd.Parameters.Add("@completed", System.Data.SqlDbType.DateTime);
 				_cmd.Parameters.Add("@listID", System.Data.SqlDbType.Int).Value = task.ListID;
+
 				if (task.IsCompleted())
 				{
 					_cmd.Parameters["@completed"].Value = task.Completed;
@@ -157,13 +177,16 @@ namespace Final_Project.Utilities
 					_cmd.Parameters["@completed"].Value = DBNull.Value;
 				}
 
+				if (task.ID == -1)
+				{
+					task.ID = GetTaskCount();
+				}
+
 				_cmd.ExecuteNonQuery();
-				transaction.Commit();
 			}
 			catch (SqlException ex)
 			{
 				Console.WriteLine(ex.Message);
-				transaction.Rollback();
 			}
 			finally
 			{
@@ -175,13 +198,15 @@ namespace Final_Project.Utilities
 		{
 			createCommand();
 
-			string sql = "UPDATE Task SET [description] = @description, [due] = @due, [completed] = @completed, [listID] = @listID WHERE [name] = @name";
+			string sql = "UPDATE Task SET [name] = @name, [description] = @description, [due] = @due, [completed] = @completed, [listID] = @listID WHERE [id] = @id";
 
 			_cmd.CommandText = sql;
+			_cmd.Parameters.Add("@name", System.Data.SqlDbType.Int).Value = task.ID;
 			_cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = task.Description;
 			_cmd.Parameters.Add("@due", System.Data.SqlDbType.DateTime).Value = task.DueDate;
 			_cmd.Parameters.Add("@completed", System.Data.SqlDbType.DateTime);
 			_cmd.Parameters.Add("@listID", System.Data.SqlDbType.Int).Value = task.ListID;
+			_cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = task.ID;
 
 			_conn.Open();
 			_cmd.ExecuteNonQuery();
@@ -192,9 +217,9 @@ namespace Final_Project.Utilities
 		{
 			createCommand();
 
-			string sql = "DELETE FROM [Task] WHERE [name] = @taskName";
+			string sql = "DELETE FROM [Task] WHERE [id] = @id";
 			_cmd.CommandText = sql;
-			_cmd.Parameters.Add("@taskName", System.Data.SqlDbType.VarChar).Value = task.Name;
+			_cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = task.ID;
 
 			_conn.Open();
 			_cmd.ExecuteNonQuery();
