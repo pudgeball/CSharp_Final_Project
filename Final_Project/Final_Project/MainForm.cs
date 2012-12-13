@@ -147,7 +147,6 @@ namespace Final_Project
                 if (taskForm.ShowDialog() == DialogResult.OK)
                 {
                     GetData();
-                    MessageBox.Show("updated");
                 }
             }
         }
@@ -181,7 +180,6 @@ namespace Final_Project
                 if (taskForm.ShowDialog() == DialogResult.OK)
                 {
                     GetData();
-                    MessageBox.Show("created");
                 }
             }
         }
