@@ -208,5 +208,12 @@ namespace Final_Project
                 GetData();
             }
         }
+
+        private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddListItemForm addListItemForm = new AddListItemForm();
+            addListItemForm.ShowDialog();
+            GetData();
+        }
 	}
 }
