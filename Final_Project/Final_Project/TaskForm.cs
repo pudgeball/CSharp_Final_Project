@@ -102,6 +102,7 @@ namespace Final_Project
 
         private void cmdCancel_Click(object sender, EventArgs e)
         {
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.Close();
         }
 
