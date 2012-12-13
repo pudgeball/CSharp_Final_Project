@@ -265,9 +265,9 @@ namespace Final_Project.Utilities
 				DeleteTask(task);
 			}
 
-			string sql = "DELETE FROM [List] WHERE [listID] = @listID";
+			string sql = "DELETE FROM [List] WHERE [id] = @listId";
 			_cmd.CommandText = sql;
-			_cmd.Parameters.Add("@listID", System.Data.SqlDbType.Int).Value = list.ID;
+			_cmd.Parameters.Add("@listId", System.Data.SqlDbType.Int).Value = list.ID;
 			_conn.Open();
 			_cmd.ExecuteNonQuery();
 			_conn.Close();
