@@ -199,12 +199,21 @@ namespace Final_Project.Utilities
 			string sql = "UPDATE Task SET [name] = @name, [description] = @description, [due] = @due, [completed] = @completed, [listID] = @listID WHERE [id] = @id";
 
 			_cmd.CommandText = sql;
-			_cmd.Parameters.Add("@name", System.Data.SqlDbType.Int).Value = task.ID;
+			_cmd.Parameters.Add("@name", System.Data.SqlDbType.VarChar).Value = task.Name;
 			_cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = task.Description;
 			_cmd.Parameters.Add("@due", System.Data.SqlDbType.DateTime).Value = task.DueDate;
 			_cmd.Parameters.Add("@completed", System.Data.SqlDbType.DateTime);
 			_cmd.Parameters.Add("@listID", System.Data.SqlDbType.Int).Value = task.ListID;
 			_cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = task.ID;
+
+			if (task.IsCompleted())
+			{
+				_cmd.Parameters["@completed"].Value = task.Completed;
+			}
+			else
+			{
+				_cmd.Parameters["@completed"].Value = DBNull.Value;
+			}
 
 			_conn.Open();
 			_cmd.ExecuteNonQuery();

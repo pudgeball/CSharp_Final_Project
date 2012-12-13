@@ -59,9 +59,11 @@ namespace Final_Project
 			}
             else if(typeOfAction.Equals("update"))
             {
-				dbHelper.DeleteTask(task);
-				task = new Task(txtName.Text, txtDescription.Text, monthCalendar1.SelectionStart);
-				dbHelper.CreateTask(task);
+				//task = new Task(txtName.Text, txtDescription.Text, monthCalendar1.SelectionStart);
+				task.Name = txtName.Text;
+				task.Description = txtDescription.Text;
+				task.DueDate = monthCalendar1.SelectionStart;
+				dbHelper.UpdateTask(task);
             }
             
             this.Close();
