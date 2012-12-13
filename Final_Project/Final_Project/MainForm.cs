@@ -199,10 +199,12 @@ namespace Final_Project
 
             Task task = tasks[taskSelectedIndex];
 
-            //update the task to be completed
-            task.SetCompleted(true);
-            dbHelper.UpdateTask(task);
-            GetData();
+            if (!task.IsCompleted())
+            {
+                task.SetCompleted(true);
+                dbHelper.UpdateTask(task);
+                GetData();
+            }
         }
 	}
 }
