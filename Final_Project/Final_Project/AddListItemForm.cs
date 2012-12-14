@@ -22,7 +22,34 @@ namespace Final_Project
 
         private void AddListItemForm_Load(object sender, EventArgs e)
         {
+			txtProjectName.KeyPress += new KeyPressEventHandler(txtProjectName_KeyPress);
         }
+
+		void txtProjectName_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			int c = e.KeyChar;
+			int len = ((TextBox)sender).Text.Length;
+			((TextBox)sender).SelectionStart = len;
+			if (c != 8)
+			{
+				if (len == 0 && c == 32)
+				{
+					e.Handled = true;
+				}
+				else if (len == 0 && (c > 96 && c < 123))
+				{
+					e.KeyChar = (char)(c - 32);
+				}
+				else if (len > 0 && c != 32)
+				{
+					if ((c < 97 || c > 122) && (c < 65 || c > 90) && (c < 48 || c > 57))
+					{
+						e.Handled = true;
+					}
+
+				}
+			}
+		}
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
