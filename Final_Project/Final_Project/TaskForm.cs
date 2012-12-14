@@ -73,13 +73,11 @@ namespace Final_Project
 				{
 					e.Handled = true;
 				}
-				else if (len > 0 && c != 32)
+				else if (len == 0 && (c > 96 && c < 123))
 				{
-					if (len == 0 && (c > 96 && c < 123))
-					{
-						e.KeyChar = (char)(c - 32);
-					}
+					e.KeyChar = (char)(c - 32);
 				}
+				
 			}
 		}
 
@@ -95,16 +93,17 @@ namespace Final_Project
 				{
 					e.Handled = true;
 				}
+				else if(len == 0 && (c > 96 && c < 123))
+				{
+					e.KeyChar = (char)(c - 32);
+				}
 				else if (len > 0 && c != 32)
 				{
 					if ((c < 97 || c > 122) && (c < 65 || c > 90) && (c < 48 || c > 57))
 					{
 						e.Handled = true;
 					}
-					else if (len == 0 && (c > 96 && c < 123))
-					{
-						e.KeyChar = (char)(c - 32);
-					}
+					
 				}
 			}
 		}
