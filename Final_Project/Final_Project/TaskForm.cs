@@ -69,9 +69,16 @@ namespace Final_Project
 			((TextBox)sender).SelectionStart = len;
 			if (c != 8)
 			{
-				if (len == 0 && (c > 96 && c < 123))
+				if (len == 0 && c == 32)
 				{
-					e.KeyChar = (char)(c - 32);
+					e.Handled = true;
+				}
+				else if (len > 0 && c != 32)
+				{
+					if (len == 0 && (c > 96 && c < 123))
+					{
+						e.KeyChar = (char)(c - 32);
+					}
 				}
 			}
 		}
@@ -84,13 +91,20 @@ namespace Final_Project
 			((TextBox)sender).SelectionStart = len;
 			if (c != 8)
 			{
-				if ((c < 97 || c > 122) && (c < 65 || c > 90) && (c < 48 || c > 57))
+				if (len == 0 && c == 32)
 				{
 					e.Handled = true;
 				}
-				else if (len == 0 && (c > 96 && c < 123))
+				else if (len > 0 && c != 32)
 				{
-					e.KeyChar = (char)(c - 32);
+					if ((c < 97 || c > 122) && (c < 65 || c > 90) && (c < 48 || c > 57))
+					{
+						e.Handled = true;
+					}
+					else if (len == 0 && (c > 96 && c < 123))
+					{
+						e.KeyChar = (char)(c - 32);
+					}
 				}
 			}
 		}
@@ -99,6 +113,7 @@ namespace Final_Project
 		{
 			if (txtDescription.Text.Length == 0)
 			{
+				
 				lblDescription.BackColor = Color.Red;
 				
 			}
@@ -109,7 +124,7 @@ namespace Final_Project
 		{
 			if (txtName.Text.Length == 0)
 			{
-				//txtName.Focus();
+				
 				lblTask.BackColor = Color.Red;
 			}
 			
@@ -154,7 +169,6 @@ namespace Final_Project
 		{
 			if (txtName.Text.Length < 1)
 			{
-				//MessageBox.Show("Enter a task name.", "Task name error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				lblError.Text = "Enter a task name!";
 				txtName.Focus();
 				return false;
